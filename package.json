@@ -1,0 +1,9 @@
+{
+  "name": "choCryption",
+  "version": "0.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.4.5",
+    "mocha": "^2.3.3"
+  }
+}
