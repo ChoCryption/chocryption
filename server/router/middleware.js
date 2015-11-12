@@ -1,5 +1,6 @@
 var morgan = require('morgan');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 
 module.exports = function (app, express) {
@@ -10,15 +11,18 @@ module.exports = function (app, express) {
   //logging middleware
   app.use(morgan('dev'));
 
+  // parse application/x-www-form-urlencoded
+  // app.use(bodyParser.urlencoded({extended: true}));
+  // app.use(bodyParser.json());
+
   //serve status files
-  // app.use(express.static(path.resolve(__dirname + '/../client')));
-  app.use(express.static(path.resolve(__dirname + '/../client/pages/')))
+  app.use(express.static(path.resolve(__dirname + '/../client')));
 
   //route encode requests to the encode router
   app.use('/api/encode', encodeRouter);
   //route decode requests to the decode router
   app.use('/api/decode', decodeRouter);
 
-  require('../encode/encodeRoutes.js')(encodeRouter);
-  require('../decode/decodeRoutes.js')(decodeRouter);
+  require('../encode/encodeRouter.js')(encodeRouter);
+  require('../decode/decodeRouter.js')(decodeRouter);
 };
