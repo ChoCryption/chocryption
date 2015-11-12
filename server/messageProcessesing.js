@@ -5,14 +5,14 @@ var fileType = require('file-type');
 var lwip = require('lwip');
 
 //Simple functional testing
-stego.encode('cho.png', 'testmessage', 'output7');
+// stego.encode('cho.png', 'testmessage', 'output7');
 
-stego.decode('output7.png', function(err, message) {
-  console.log(message);
-  return message;
-});
+// stego.decode('output7.png', function(err, message) {
+//   console.log(message);
+//   return message;
+// });
 
-var pathToImages = '';
+var pathToImages = './';
 
 module.exports = {
   encode: function(imageName, message, callback) {
@@ -43,7 +43,7 @@ module.exports = {
         });
       });
     } else if (imageType.ext === 'png') {
-      stego.encode(fullName + '.png', message, function(err, encodeImageName) {
+      stego.encode(fullName, message, function(err, encodeImageName) {
         if(err) {
           console.log(err);
           callback(err);
