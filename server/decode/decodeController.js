@@ -7,7 +7,7 @@ module.exports = {
 
     //take req.file.path is the path and file name
 
-    //call decode function, on 
+    //call decode function, on
 
     //decode(img, callback)
 
