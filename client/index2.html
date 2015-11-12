@@ -17,17 +17,16 @@
 <body>
     <h1>ChoCryption</h1>
 
-    <form action="api/encode">
+    <form action="/api/encode" method="post">
         <input type="text" name="message" placeholder="message"></input>
         <input type="submit"></input>
     </form>
     <p>Write your message to be hidden inside an image</p>
 
-    <form action="api/decode">
+    <form action="/api/decode" method="post">
         <input type="file" name="image"></input>
         <input type="submit"></input>
     </form>
     <p>Decode an image</p>
-
 </body>
 </html>
