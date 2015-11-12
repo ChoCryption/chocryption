@@ -2,7 +2,15 @@
   "name": "choCryption",
   "version": "0.0.0",
   "description": "",
+  "scripts": {
+    "test": "node test/serverSpecs.js & node_modules/.bin/mocha --bail; pkill -n node;"
+  },
+  "devDependencies": {
+    "test": ">=0.0.5"
+  },
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "chai": "^1.9.0",
     "express": "^4.4.5",
     "mocha": "^2.3.3"
   }
