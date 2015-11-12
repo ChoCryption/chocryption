@@ -10,6 +10,7 @@
     "test": ">=0.0.5"
   },
   "dependencies": {
+    "angular-route": "^1.4.7",
     "body-parser": "^1.14.1",
     "chai": "^1.9.0",
     "crypto": "0.0.3",
