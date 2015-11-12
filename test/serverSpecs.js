@@ -8,13 +8,12 @@ describe('server', function () {
   before(function () {
     server.listen(8000);
   });
-
   after(function () {
     server.close();
   });
 });
 
-// 
+// GET request for going to home page
 describe('/', function () {
   it('should return 200', function(done) {
     http.get('http://localhost:8000', function (res) {
