@@ -12,7 +12,10 @@
   "dependencies": {
     "body-parser": "^1.14.1",
     "chai": "^1.9.0",
+    "crypto": "0.0.3",
     "express": "^4.4.5",
+    "fs": "0.0.2",
+    "lwip": "0.0.8",
     "mocha": "^2.3.3"
   }
 }
