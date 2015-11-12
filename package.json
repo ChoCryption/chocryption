@@ -1,7 +1,8 @@
 {
   "name": "choCryption",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "choCrypt all the thingz!",
+  "author": "Aaron Kandle, Chris Ding, Nick Fujita, Tate Thurston",
   "scripts": {
     "test": "node test/serverSpecs.js & node_modules/.bin/mocha --bail; pkill -n node;"
   },
