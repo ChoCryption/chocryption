@@ -17,19 +17,16 @@
 <body>
     <h1>ChoCryption</h1>
 
-    <form>
+    <form action="/api/encode" method="post">
         <input type="text" name="message" placeholder="message"></input>
         <input type="submit"></input>
     </form>
     <p>Write your message to be hidden inside an image</p>
 
-    <form>
-        <div style="width: 200px; height: 200px; background: grey" id="pasteTarget">Click and paste here.</div>
+    <form action="/api/decode" method="post" enctype="multipart/form-data">
+        <input type="file" name="image"></input>
         <input type="submit"></input>
     </form>
     <p>Decode an image</p>
-
-    <!-- using js from test, should eventually be changed to production file -tt-->
-    <script src="test/src/app.js"></script>
 </body>
 </html>
