@@ -1,8 +1,8 @@
 <div id="decrypt">    
   <p>Decrypt the message hidden inside an image</p>          
-  <form id="decryptForm">
-    <input type="file" name="pic" accept="image/*">
-    <input type="submit" value="Submit">
-  </form>
+  <form action="/api/decode" method="post" enctype="multipart/form-data">
+		<input type="file" name="imageFile"></input>
+		<input type="submit"></input>
+	</form>
   <p id="decryptMessage"><p>
 </div>

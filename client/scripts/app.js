@@ -1,4 +1,7 @@
-var app = angular.module('app', ['ui.router']);
+var app = angular.module('app', [
+    'ui.router',
+    'cho.services'
+  ]);
 
 app.config(function($stateProvider,$urlRouterProvider) {
   $stateProvider
@@ -29,20 +32,21 @@ app.config(function($stateProvider,$urlRouterProvider) {
 //   console.log("hey what's up")
 // });
 
-app.controller('encryptCtrl', function($scope, $http) {
-  $scope.encryptMessage = function (message, callback) {   
-    $http({
-      method: 'POST',
-      data: message,
-      url: '/api/encrypt' 
-      })
-    .success(function(resp) { /////// STUBS FOR PROMISES
-      console.log('Hey!  You made a successful POST to encryptMessage'); 
-      callback(resp);
+app.controller('encryptCtrl', function($scope, $http, Encrypt) {
+  $scope.message = '';
+
+  $scope.encryptMessage = function () {   
+    Encrypt.encryptMessage($scope.message)
+    .then(function (imageData) {
+      console.log(imageData);
+      var image = document.createElement('img');
+      image.src = imageData;
+      document.body.appendChild(image);
+      //placeholder for blog stuff
     })
-    .error(function(resp) {
-      console.log("Hey!  Error on your POST to encryptMessage");
-    }); 
+    .catch(function (error) {
+      console.error(error);
+    });
   };
 });
 
@@ -53,11 +57,11 @@ app.controller('decryptCtrl', function($scope, $http) {
       data: file,
       url: '/api/decrypt'
     })
-    .success(function(resp) { /////// STUBS FOR PROMISES
+    .then(function(resp) { /////// STUBS FOR PROMISES
       console.log('Hey!  You made a successful POST to decryptMessage');
       callback(resp);
     })
-    .error(function(resp) {
+    .catch(function(resp) {
       console.log("Hey!  Error on your POST to decryptMessage");    
     });
   };
