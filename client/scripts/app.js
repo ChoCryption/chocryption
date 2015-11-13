@@ -1,9 +1,9 @@
 var app = angular.module('app', [
-    'ui.router',
-    'cho.services'
-  ]);
+  'ui.router',
+  'cho.services'
+]);
 
-app.config(function($stateProvider,$urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('home', {
       url: '/home',
@@ -20,49 +20,51 @@ app.config(function($stateProvider,$urlRouterProvider) {
       controller: 'decryptCtrl'
     });
 
-    $urlRouterProvider.otherwise('/home/encrypt');
+  $urlRouterProvider.otherwise('/home/encrypt');
 
 });
 
-// app.controller('homeCtrl', function($scope) {
-//   console.log("hey I'm at home")
-// })
-
-// app.controller('decryptCtrl', function($scope) {
-//   console.log("hey what's up")
-// });
-
-app.controller('encryptCtrl', function($scope, $http, Encrypt) {
+app.controller('encryptCtrl', function ($scope, $http, Encrypt) {
   $scope.message = '';
+  $scope.imageSource = '';
 
-  $scope.encryptMessage = function () {   
+  $scope.encryptMessage = function () {
     Encrypt.encryptMessage($scope.message)
-    .then(function (imageData) {
-      console.log(imageData);
-      var image = document.createElement('img');
-      image.src = imageData;
-      document.body.appendChild(image);
-      //placeholder for blog stuff
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+      .then(function (data) {
+        console.log(data.image);
+        $scope.imageSource = data.image;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
 });
 
-app.controller('decryptCtrl', function($scope, $http) {
-  $scope.decryptMessage = function (file, callback) {
-    $http({
-      method: 'POST',
-      data: file,
-      url: '/api/decrypt'
-    })
-    .then(function(resp) { /////// STUBS FOR PROMISES
-      console.log('Hey!  You made a successful POST to decryptMessage');
-      callback(resp);
-    })
-    .catch(function(resp) {
-      console.log("Hey!  Error on your POST to decryptMessage");    
-    });
+app.controller('decryptCtrl', function ($scope, $http) {
+  $scope.secretMessage = '';
+  $scope.decryptMessage = function () {
+
+    var fileSelect = document.getElementById('file-select');
+    var file = fileSelect.files[0];
+
+    var formData = new FormData();
+    formData.append('imageFile', file);
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        $scope.secretMessage = xhr.responseText;
+        console.log('successful');
+        $scope.$apply();
+      } else {
+        console.log('nope');
+      }
+    };
+
+    xhr.open('POST', '/api/decode', true);
+
+    xhr.send(formData);
+
   };
 });
