@@ -2,6 +2,7 @@ var lwip = require('lwip');
 var fs = require('fs');
 var crypto = require('crypto');
 var path = require('path');
+var uuid = require('node-uuid');
 
 var _index = 0;
 var _width = 0;
@@ -193,9 +194,11 @@ module.exports = {
   },
   encode: function (imageFile, message, callback) {
 
+    console.log('steg encode, imageFile: ',imageFile);
+
     var fileLocation = path.dirname(imageFile);
 
-    var outputFile = path.join(fileLocation,'encoded-' + path.basename(imageFile));
+    var outputFile = path.join(fileLocation,'/encoded/',uuid.v1()+'.png');
 
     var embedMessage = function(message, cb) {
       message = new Buffer(message);
@@ -225,24 +228,24 @@ module.exports = {
 
                   _batch.writeFile(outputFile, function (err) {
                     if (err) {
-                      console.log(err);
+                      console.log('steg encode, _batch.write: ',err);
                     }
                     console.log('no error');
                     callback(null, outputFile);
                   });
                 } else {
-                  console.log(err);
+                  console.log('steg encode, image.clone: ',err);
                 }
 
               });
 
             } else {
-              console.log(err);
+              console.log('steg encode, lwip.open: ',err);
             }
           }
         );
       } else {
-        console.log(err);
+        console.log('steg encode, embedMessage: ',err);
       }
 
     });

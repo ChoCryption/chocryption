@@ -15,7 +15,7 @@ angular.module('cho.services', [])
       responseType: 'blob'
     })
     .then(function(data) {
-      console.log('starting then');
+      console.log('starting then', data);
 
       return $q(function(resolve, reject) {
 
