@@ -1,8 +1,9 @@
 <div id="encrypt">
   <p>Write your message to be hidden inside an image</p>    
-  <form id="newMessage" ng-submit="encryptMessage()">
-    <input type="text" name="message" placeholder="your message" ng-model="message">
+  <form ng-submit="encryptMessage()">
+    <input type="text" placeholder="your message" ng-model="message">
     <input type="submit" value="Submit">
   </form>
   <img src="{{imageSource}}"/>
+  <p>{{errorMessage}}</p>
 </div>
