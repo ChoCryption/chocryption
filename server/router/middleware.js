@@ -17,10 +17,6 @@ module.exports = function (app, express) {
   //logging middleware
   app.use(morgan('dev'));
 
-  // parse application/x-www-form-urlencoded
-  // app.use(bodyParser.urlencoded({extended: true}));
-  // app.use(bodyParser.json());
-
   //serve status files
   app.use(express.static(path.resolve(__dirname + '/../client')));
 
