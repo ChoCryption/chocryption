@@ -2,8 +2,10 @@
 
 var expect = require('chai').expect;
 var assert = require('assert');
-var messageProcess = require('../server/messageProcessesing.js');
+var messageProcess = require('./../server/messageProcessing.js');
 var fs = require('fs');
+var fileType = require('file-type');
+var paths = require('./lib/util.js').paths;
 
 var testAssetsDir = './test_assets/';
 //temp is for all processed files, should be empty when test not running
@@ -60,10 +62,14 @@ describe('Message Processing for Steganography', function () {
 
       it('Should convert a JPG image', function (done) {
         //in progress here
-        // var unencodedTestImage = path.join(testAssetsDir, '/PNG_Example');
-        // messageProcess.encode(unencodedTestImage, testMessage, done);
-        // var fileExists = fs.stat(testTempDir + '/PNG_Example.png').isFile();
-        // expect(fileExists).to.be.true;
+        var unencodedTestImage = path.join(testAssetsDir, 'cho.jpg');
+        messageProcess.encode(unencodedTestImage, testMessage, done);
+        var fileExists = fs.stat(testTempDir + '/cho.png').isFile();
+        expect(fileExists).to.be.true;
+      });
+
+      it('Should convert to a valid png', function(done) {
+
       });
 
     });

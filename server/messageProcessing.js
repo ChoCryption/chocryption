@@ -3,6 +3,7 @@ var path = require('path');
 var readChunk = require('read-chunk');
 var fileType = require('file-type');
 var lwip = require('lwip');
+var paths = require('./lib/util.js').paths;
 
 //Simple functional testing
 // stego.encode('cho.png', 'testmessage', 'output7');
