@@ -18,7 +18,7 @@ module.exports = function (app, express) {
   app.use(morgan('dev'));
 
   //serve status files
-  app.use(express.static(path.resolve(__dirname + '/../client')));
+  app.use(express.static(__dirname + '/../../client'));
 
   //route encode requests to the encode router
   app.use('/api/encode', bodyParser.urlencoded({extended: true}), encodeRouter);
