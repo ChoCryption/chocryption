@@ -4,7 +4,8 @@
   "description": "choCrypt all the thingz!",
   "author": "Aaron Kandle, Chris Ding, Nick Fujita, Tate Thurston",
   "scripts": {
-    "test": "node test/serverSpecs.js & node_modules/.bin/mocha --bail; pkill -n node;"
+    "test": "node test/serverSpecs.js & node_modules/.bin/mocha --bail; pkill -n node;",
+    "lint": "jscs ./"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.1.18",
