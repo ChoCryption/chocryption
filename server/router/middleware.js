@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer({
   //destination folder
-  dest: __dirname+'/../uploads'
+  dest: __dirname+'/../temp'
 });
 
 
@@ -21,7 +21,7 @@ module.exports = function (app, express) {
   app.use(express.static(__dirname + '/../../client'));
 
   //route encode requests to the encode router
-  app.use('/api/encode', bodyParser.urlencoded({extended: true}), encodeRouter);
+  app.use('/api/encode', bodyParser.json(), encodeRouter);
   //route decode requests to the decode router
   app.use('/api/decode', upload.single('imageFile'), decodeRouter);
 
