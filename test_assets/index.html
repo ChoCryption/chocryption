@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Test </title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+    <script>
+      $(document).ready(function() {
+        $("#send").click(function() {
+          $.post('http://localhost:8000/', {
+            name: "Chris Ding",
+            title: "Lead Designer"
+          }, function(data) {console.log(data, '     hey whats up!')}
+          );
+        });
+      })
+    </script>
+  </head>
+  <body>
+    <h1> Hello! </h1>  
+    <button id='send'> press me! </button>  
+
+  </body>
+</html>
+
