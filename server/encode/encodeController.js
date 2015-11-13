@@ -1,13 +1,19 @@
+var path = require('path')
 var fs = require('fs');
+var stego = require('../lib/steg.js');
 
 module.exports = {
 
   encodeMessage: function (req, res, next) {
 
-    //extract the message from the data, and send it into the service that encodes messages
-
     //expect to get a picture back, and send it in the res
     //encode(img, message, callback)
+  	stego.encode(path.resolve(__dirname,'../cho'), req.body.message, function(err, imageFileName) {
+  		fs.readFile(imageFileName, function(err, data) {
+  			if(err) throw err;
+  			res.send(data);
+  		});
+  	});
 
   }
 

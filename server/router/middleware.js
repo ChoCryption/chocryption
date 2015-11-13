@@ -2,9 +2,9 @@ var morgan = require('morgan');
 var path = require('path');
 var bodyParser = require('body-parser');
 var multer = require('multer');
-var upload = nulter({
+var upload = multer({
   //destination folder
-  dest: '/uploads'
+  dest: __dirname+'/../uploads'
 });
 
 
@@ -25,7 +25,7 @@ module.exports = function (app, express) {
   app.use(express.static(path.resolve(__dirname + '/../client')));
 
   //route encode requests to the encode router
-  app.use('/api/encode', encodeRouter);
+  app.use('/api/encode', bodyParser.urlencoded({extended: true}), encodeRouter);
   //route decode requests to the decode router
   app.use('/api/decode', upload.single('imageFile'), decodeRouter);
 
