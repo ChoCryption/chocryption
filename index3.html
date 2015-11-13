@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
@@ -8,12 +8,10 @@
     <meta content="#" name="description">
     <meta content="#" name="author">
 
-    <title>ChoCryption</title>
-    <script src="../node_modules/angular/angular.min.js"></script>
-    <script src="../node_modules/angular-route/angular-route.min.js"></script>
-    <!-- using js from test, should eventually be changed to production file -tt-->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script src="scripts/app.js"></script>    
+    <title>ChoCrypt</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="../app.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -22,12 +20,20 @@
     <![endif]-->
 </head>
 
-<body ng-app='app'>
- <!-- MAIN CONTENT AND INJECTED VIEWS -->
+<body>
     <h1>ChoCryption</h1>
-    <div id="main">
-        <div ng-view></div>
-    </div>
-</body>
+    
+    <div ng-controller="ChoController">
 
+    <p>Write your message to be hidden inside an image</p>
+
+    <form>
+        <div style="width: 200px; height: 200px; background: grey" id="pasteTarget">Click and paste here.</div>
+        <input type="submit"></input>
+    </form>
+    <p>Decode an image</p>
+    </div>
+
+    <!-- using js from test, should eventually be changed to production file -tt-->
+</body>
 </html>
