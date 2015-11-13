@@ -12,18 +12,21 @@ var lwip = require('lwip');
 //   return message;
 // });
 
-var pathToImages = './';
+var pathToImages = path.join(__dirname + '/temp');
 
 module.exports = {
   encode: function(imageName, message, callback) {
     //check image type here
     var image = [];
     var fullName = path.join(pathToImages, imageName);
+    console.log(fullName);
     var fileBuffer = readChunk.sync(fullName, 0, 262);
     var imageType = fileType(fileBuffer);
+    console.log(imageType);
+
 
     if (imageType.ext !== 'png') {
-      lwip.open(fullName, imageType.ext, function(image) {
+      lwip.open(fullName, imageType.ext, function(err, image) {
         image.writeFile(fullName + '.png', 'png', function(err) {
           if (err) {
             console.log(err);
@@ -68,18 +71,41 @@ module.exports = {
     }
   },
 
-  decode: function(image, callback) {
-    var fullName = path.join(pathToImages, image);
+  decode: function(imageName, callback) {
+    var fullName = path.join(pathToImages, imageName);
+    var fileBuffer = readChunk.sync(fullName, 0, 262);
+    var imageType = fileType(fileBuffer);
+    // console.log(fullName);
     //Do we need to check file type here??
-    stego.decode(fullName, function(err, message) {
-      if (err) {
-        console.log(err);
-        callback(err);
-      } else {
-        console.log('Message has been decoded successfully');
-        callback(null, message);
-      }
+    lwip.open(fullName, imageType.ext, function(err, image) {
+      image.writeFile(fullName + '.png', 'png', function(err) {
+        if (err) {
+          console.log(err);
+          callback(err);
+        } else {
+          console.log('Image converted to png.');
+          console.log('Beginning encode process...');
+          stego.decode(fullName+'.png', function(err, message) {
+            if(err) {
+              console.log(err);
+              callback(err);
+            } else {
+              console.log('Message has been decoded successfully');
+              callback(null, message);
+            }
+          });
+        }
+      });
     });
+    // stego.decode(fullName, function(err, message) {
+    //   if (err) {
+    //     console.log(err);
+    //     callback(err);
+    //   } else {
+    //     console.log('Message has been decoded successfully');
+    //     callback(null, message);
+    //   }
+    // });
   }
 };
 

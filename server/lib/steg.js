@@ -1,6 +1,7 @@
 var lwip = require('lwip');
 var fs = require('fs');
 var crypto = require('crypto');
+var path = require('path');
 
 var _index = 0;
 var _width = 0;
@@ -154,6 +155,7 @@ module.exports = {
   decode: function (imageFile, cb) {
 
     var message = '';
+    console.log(imageFile);
 
     lwip.open(imageFile,
       function (err, image) {
@@ -191,7 +193,9 @@ module.exports = {
   },
   encode: function (imageFile, message, callback) {
 
-    var outputFile = 'encoded-' + imageFile;
+    var fileLocation = path.dirname(imageFile);
+
+    var outputFile = path.join(fileLocation,'encoded-' + path.basename(imageFile));
 
     var embedMessage = function(message, cb) {
       message = new Buffer(message);
@@ -219,12 +223,12 @@ module.exports = {
 
                   outputFile = outputFile ? outputFile : 'output';
 
-                  _batch.writeFile(outputFile + '.png', function (err) {
+                  _batch.writeFile(outputFile, function (err) {
                     if (err) {
                       console.log(err);
                     }
                     console.log('no error');
-                    callback(null, outputFile + '.png');
+                    callback(null, outputFile);
                   });
                 } else {
                   console.log(err);
