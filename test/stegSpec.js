@@ -1,3 +1,5 @@
+/*jshint expr: true*/
+
 var expect = require('chai').expect;
 var assert = require('assert');
 var steg = require('../server/lib/steg.js');
