@@ -1,8 +1,8 @@
 <div id="decrypt">    
   <p>Decrypt the message hidden inside an image</p>          
-  <form action="/api/decode" method="post" enctype="multipart/form-data">
-		<input type="file" name="imageFile"></input>
+  <form ng-submit="decryptMessage()">
+		<input id="file-select" type="file" name="imageFile"></input>
 		<input type="submit"></input>
 	</form>
-  <p id="decryptMessage"><p>
+  <p>{{secretMessage}}<p>
 </div>
