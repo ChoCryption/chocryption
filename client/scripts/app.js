@@ -1,15 +1,24 @@
-var app = angular.module('app', ['ngRoute']);
+var app = angular.module('app', ['ui.router']);
 
-app.config(function($routeProvider) {
-  $routeProvider
-    .when('/', {
-      templateUrl: 'pages/home.html',
-      controller: 'homeCtrl'
-    })    
-    .when('/decrypt', {
+app.config(function($stateProvider,$urlRouterProvider) {
+  $stateProvider
+    .state('home', {
+      url: '/home',
+      templateUrl: 'pages/home.html'
+    })
+    .state('home.encrypt', {
+      url: '/encrypt',
+      templateUrl: 'pages/encrypt.html',
+      controller: 'encryptCtrl'
+    })
+    .state('home.decrypt', {
+      url: '/decrypt',
       templateUrl: 'pages/decrypt.html',
       controller: 'decryptCtrl'
-    })
+    });
+
+    $urlRouterProvider.otherwise('/home/encrypt');
+
 });
 
 // app.controller('homeCtrl', function($scope) {
@@ -20,7 +29,7 @@ app.config(function($routeProvider) {
 //   console.log("hey what's up")
 // });
 
-app.controller('homeCtrl', function($scope, $http) {
+app.controller('encryptCtrl', function($scope, $http) {
   $scope.encryptMessage = function (message, callback) {   
     $http({
       method: 'POST',
