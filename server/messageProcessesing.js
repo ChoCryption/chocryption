@@ -23,7 +23,7 @@ module.exports = {
     var imageType = fileType(fileBuffer);
 
     if (imageType.ext !== 'png') {
-      lwip(fullName, imageType.ext, function(image) {
+      lwip.open(fullName, imageType.ext, function(image) {
         image.writeFile(fullName + '.png', 'png', function(err) {
           if (err) {
             console.log(err);
@@ -43,13 +43,24 @@ module.exports = {
         });
       });
     } else if (imageType.ext === 'png') {
-      stego.encode(fullName, message, function(err, encodeImageName) {
-        if(err) {
-          console.log(err);
-          callback(err);
-        } else {
-          callback(null, encodeImageName);
-        }
+      lwip.open(fullName, 'png', function(err, image) {
+        image.writeFile(fullName + '.png', 'png', function(err) {
+          if (err) {
+            console.log(err);
+            callback(err);
+          } else {
+            console.log('Image converted to png.');
+            console.log('Beginning encode process...');
+            stego.encode(fullName + '.png', message, function(err, encodeImageName) {
+              if(err) {
+                console.log(err);
+                callback(err);
+              } else {
+                callback(null, encodeImageName);
+              }
+            });
+          }
+        });
       });
     } else {
       console.log('Cannot recognize the filetype: ', imageType.ext);
@@ -58,7 +69,7 @@ module.exports = {
   },
 
   decode: function(image, callback) {
-    var fullName = path.join(pathToImages, image, '.png');
+    var fullName = path.join(pathToImages, image);
     //Do we need to check file type here??
     stego.decode(fullName, function(err, message) {
       if (err) {
