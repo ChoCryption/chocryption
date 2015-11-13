@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 // serve static elements
-app.use(express.static(path.resolve(__dirname + '/../test_assets'))) // INSERT REAL ASSET PATH
+app.use(express.static(path.resolve(__dirname + '/../client/src/pages/'))) // INSERT REAL ASSET PATH
 
 // Request Handling 
 // 'homepage'
@@ -20,13 +20,9 @@ app.post('/', function(req, res) {
 });
 
 // hypothetical 'other page'
-app.get('/goodbye', function(req, res) {
-  res.status(200).send('you made a GET request to HOMEPAGE'); // INSERT REAL ACTION
-});
-
-app.post('/goodbye', function(req, res) {
-  res.status(200).send('you made a POST request to HOMEPAGE'); // INSERT REAL ACTION
-  res.end();
+// app.get('client/#/pages/home.html', function(req, res) {
+app.get('/something', function(req, res) {
+  res.status(200).send('you made a GET request to ENCRYPT'); // INSERT REAL ACTION
 });
 
 app.listen(8000);
