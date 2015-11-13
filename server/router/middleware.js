@@ -1,6 +1,12 @@
 var morgan = require('morgan');
 var path = require('path');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var upload = nulter({
+  //destination folder
+  dest: '/uploads'
+});
+
 
 
 module.exports = function (app, express) {
@@ -21,7 +27,7 @@ module.exports = function (app, express) {
   //route encode requests to the encode router
   app.use('/api/encode', encodeRouter);
   //route decode requests to the decode router
-  app.use('/api/decode', decodeRouter);
+  app.use('/api/decode', upload.single('imageFile'), decodeRouter);
 
   require('../encode/encodeRouter.js')(encodeRouter);
   require('../decode/decodeRouter.js')(decodeRouter);
