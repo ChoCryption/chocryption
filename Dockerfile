@@ -11,7 +11,7 @@ RUN yum install -y nodejs npm
 COPY . /src
 
 # move into the src directory where all the source code files live. install all npm dependencies
-RUN cd /src; npm install
+RUN cd /src; npm install -g node-gyp; npm install
 
 #map port 8000 to the docker daemon.
 #REMEMBER TO CHANGE THIS IF THE PORT IS CHANGED IN server.js

@@ -36,9 +36,10 @@ module.exports = {
             console.log('Beginning encode process...');
             stego.encode(fullName + '.png', message, function(err, encodeImageName) {
               if(err) {
-                console.log(err);
+                console.log('encode non pgn: ', err);
                 callback(err);
               } else {
+                console.log('encode non pgn: i am now encoded!!!')
                 callback(null, encodeImageName);
               }
             });
@@ -56,9 +57,10 @@ module.exports = {
             console.log('Beginning encode process...');
             stego.encode(fullName + '.png', message, function(err, encodeImageName) {
               if(err) {
-                console.log(err);
+                console.log('encode png: ', err);
                 callback(err);
               } else {
+                console.log('encode png: i am now encoded!!!')
                 callback(null, encodeImageName);
               }
             });
@@ -77,26 +79,72 @@ module.exports = {
     var imageType = fileType(fileBuffer);
     // console.log(fullName);
     //Do we need to check file type here??
-    lwip.open(fullName, imageType.ext, function(err, image) {
-      image.writeFile(fullName + '.png', 'png', function(err) {
-        if (err) {
-          console.log(err);
-          callback(err);
-        } else {
-          console.log('Image converted to png.');
-          console.log('Beginning encode process...');
-          stego.decode(fullName+'.png', function(err, message) {
-            if(err) {
-              console.log(err);
-              callback(err);
-            } else {
-              console.log('Message has been decoded successfully');
-              callback(null, message);
-            }
-          });
-        }
+    // lwip.open(fullName, imageType.ext, function(err, image) {
+    //   image.writeFile(fullName + '.png', 'png', function(err) {
+    //     if (err) {
+    //       console.log(err);
+    //       callback(err);
+    //     } else {
+    //       console.log('Image converted to png.');
+    //       console.log('Beginning encode process...');
+    //       stego.decode(fullName+'.png', function(err, message) {
+    //         if(err) {
+    //           console.log(err);
+    //           callback(err);
+    //         } else {
+    //           console.log('Message has been decoded successfully');
+    //           callback(null, message);
+    //         }
+    //       });
+    //     }
+    //   });
+    // });
+    if (imageType.ext !== 'png') {
+      lwip.open(fullName, imageType.ext, function(err, image) {
+        image.writeFile(fullName + '.png', 'png', function(err) {
+          if (err) {
+            console.log(err);
+            callback(err);
+          } else {
+            console.log('Image converted to png.');
+            console.log('Beginning decode process...');
+            stego.decode(fullName+'.png', function(err, message) {
+              if(err) {
+                console.log(err);
+                callback(err);
+              } else {
+                console.log('Message has been decoded successfully');
+                callback(null, message);
+              }
+            });
+          }
+        });
       });
-    });
+    } else if (imageType.ext === 'png') {
+      lwip.open(fullName, 'png', function(err, image) {
+        image.writeFile(fullName + '.png', 'png', function(err) {
+          if (err) {
+            console.log(err);
+            callback(err);
+          } else {
+            console.log('Image converted to png.');
+            console.log('Beginning decode process...');
+            stego.decode(fullName+'.png', function(err, message) {
+              if(err) {
+                console.log(err);
+                callback(err);
+              } else {
+                console.log('Message has been decoded successfully');
+                callback(null, message);
+              }
+            });
+          }
+        });
+      });
+    } else {
+      console.log('Cannot recognize the filetype: ', imageType.ext);
+      callback(new Error('Filetype is incorrect'));
+    }
     // stego.decode(fullName, function(err, message) {
     //   if (err) {
     //     console.log(err);

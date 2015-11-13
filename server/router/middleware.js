@@ -13,6 +13,7 @@ module.exports = function (app, express) {
  
   var encodeRouter = express.Router();
   var decodeRouter = express.Router();
+  var imageRouter = express.Router();
 
   //logging middleware
   app.use(morgan('dev'));
@@ -25,6 +26,9 @@ module.exports = function (app, express) {
   //route decode requests to the decode router
   app.use('/api/decode', upload.single('imageFile'), decodeRouter);
 
+  app.use('/img', imageRouter);
+
   require('../encode/encodeRouter.js')(encodeRouter);
   require('../decode/decodeRouter.js')(decodeRouter);
+  require('../image/imageRouter.js')(imageRouter);
 };
