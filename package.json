@@ -4,7 +4,7 @@
   "description": "choCrypt all the thingz!",
   "author": "Aaron Kandle, Chris Ding, Nick Fujita, Tate Thurston",
   "scripts": {
-    "test": "node test/serverSpecs.js & node_modules/.bin/mocha --bail; pkill -n node;",
+    "test": "mocha",
     "lint": "jscs ./"
   },
   "devDependencies": {
@@ -26,9 +26,10 @@
     "file-type": "^3.3.0",
     "fs": "^0.0.2",
     "lwip": "^0.0.8",
-    "path": "^0.12.7",
-    "read-chunk": "^1.0.1",
     "morgan": "^1.6.1",
-    "multer": "^1.1.0"
+    "multer": "^1.1.0",
+    "node-uuid": "^1.4.7",
+    "path": "^0.12.7",
+    "read-chunk": "^1.0.1"
   }
 }
