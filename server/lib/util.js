@@ -1,5 +1,10 @@
+var path = require('path');
+
 exports.paths = {
-  images: path.join(__dirname, '../image/')
+  image: path.join(__dirname, '../image/'),
+  encoded: path.join(__dirname, '../temp/encoded/'),
+  temp: path.join(__dirname, '../temp/'),
+  client: path.join(__dirname, '../../client/')
 };
 
 // Used for stubbing paths for tests, do not modify
