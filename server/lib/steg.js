@@ -3,6 +3,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 var path = require('path');
 var uuid = require('node-uuid');
+var paths = require('./util.js').paths;
 
 var _index = 0;
 var _width = 0;
@@ -79,7 +80,7 @@ var digUpNextSection = function () {
   while (_index < _width * _height) {
     b = 0;
     for (var i = 0; i < 8; i++) {
-      if (i % 3 == 0) {
+      if (i % 3 === 0) {
         pixel = _clone.getPixel(_index % _width, Math.floor(_index / _width));
         _index++;
       }
@@ -117,12 +118,11 @@ var embedSection = function (buffer) {
 
   var bit;
 
-  // TODO: I have the impression that this algorithm can be simplified...
   for (var i = 0; i < buffer.length; i++) {
     octect = buffer[i];
 
     for (var j = 0; j < 8; j++) {
-      if (j % 3 == 0) {
+      if (j % 3 === 0) {
         if (pixel) {
           _batch.setPixel(_index % _width, Math.floor(_index / _width), pixel);
           _index++;
@@ -196,9 +196,13 @@ module.exports = {
 
     console.log('steg encode, imageFile: ',imageFile);
 
-    var fileLocation = path.dirname(imageFile);
+    //use paths.image
+    var fileLocation = paths.image;
+    // var fileLocation = path.dirname(imageFile);
 
-    var outputFile = path.join(fileLocation,'/encoded/',uuid.v1()+'.png');
+    //use paths.encoded
+    var outputFile = path.join(paths.encoded, uuid.v1() + '.png');
+    // var outputFile = path.join(fileLocation,'/encoded/',uuid.v1()+'.png');
 
     var embedMessage = function(message, cb) {
       message = new Buffer(message);

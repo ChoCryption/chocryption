@@ -1,11 +1,11 @@
-var path = require('path')
+var path = require('path');
 var fs = require('fs');
 
 module.exports = {
 
   findImage: function (req, res, next, code) {
 
-    req.imgCode = code
+    req.imgCode = code;
     console.log(code);
     next();
 
