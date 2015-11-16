@@ -22,7 +22,7 @@ module.exports = {
           console.log('Problem opening');
           callback(err);
         }
-        fullName = path.join(paths.temp, path.basename(fullName, imageType.ext) + 'png');
+        fullName = path.join(paths.temp, path.basename(fullName, imageType.ext) + '.png');
         image.writeFile(fullName, 'png', function(err) {
           if (err) {
             console.log(err);
