@@ -1,8 +1,9 @@
-<div id="decrypt">    
+<div>    
   <p>Decrypt the message hidden inside an image</p>          
   <form ng-submit="decryptMessage()">
-		<input id="file-select" type="file" name="imageFile"></input>
-		<input type="submit"></input>
-	</form>
+    <input id="file-select" type="file"></input>
+    <input type="submit"></input>
+  </form>
   <p>{{secretMessage}}<p>
+  <p>{{errorMessage}}</p>
 </div>

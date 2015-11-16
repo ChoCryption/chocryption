@@ -3,22 +3,13 @@ var path = require('path');
 var readChunk = require('read-chunk');
 var fileType = require('file-type');
 var lwip = require('lwip');
-
-//Simple functional testing
-// stego.encode('cho.png', 'testmessage', 'output7');
-
-// stego.decode('output7.png', function(err, message) {
-//   console.log(message);
-//   return message;
-// });
-
-var pathToImages = path.join(__dirname + '/temp');
+var paths = require('./lib/util.js').paths;
 
 module.exports = {
   encode: function(imageName, message, callback) {
     //check image type here
     var image = [];
-    var fullName = path.join(pathToImages, imageName);
+    var fullName = path.join(paths.image, imageName);
     console.log(fullName);
     var fileBuffer = readChunk.sync(fullName, 0, 262);
     var imageType = fileType(fileBuffer);
