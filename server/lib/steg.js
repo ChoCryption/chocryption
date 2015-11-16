@@ -12,6 +12,10 @@ var _clone;
 var _batch;
 var _password;
 
+//These functions assume that the file name being passed in is a valid file,
+//has a file extension, and is of the correct type.  See messageProcessing,
+//where these steps are done.
+
 /*
 Reads the least significant bits of the pixel (Red, Green and Blue) and
 add them to the corresponding position of the byte being constructed
@@ -153,6 +157,12 @@ var embedSection = function (buffer) {
 
 module.exports = {
 
+  //Decode
+  //Input: imageFile
+  //  Full system path to file, with extension, and must be of the format .PNG
+  //Input: cb
+  //  Will be called with err, filename.  Where filename does NOT include path
+  //Output: none directly, uses callbacks
   decode: function (imageFile, cb) {
 
     var message = '';
@@ -192,22 +202,29 @@ module.exports = {
     console.log('Decode Successful');
     return;
   },
+
+  //Encode
+  //Input: imageFile
+  //  Full system path to file, with extension, and must be of the format .PNG
+  //Input: message
+  //  Text string
+  //Input: callback
+  //  Will be called with err, filename.  Where filename does NOT include path
+  //Output: none directly, uses callbacks
   encode: function (imageFile, message, callback) {
 
-    console.log('steg encode, imageFile: ',imageFile);
+    console.log('Beginning message encode on image file: ',imageFile);
 
-    //use paths.image
-    var fileLocation = paths.image;
-    // var fileLocation = path.dirname(imageFile);
+    // var fileLocation = paths.image;
 
-    //use paths.encoded
     var outputFile = path.join(paths.encoded, uuid.v1() + '.png');
-    // var outputFile = path.join(fileLocation,'/encoded/',uuid.v1()+'.png');
 
+    //Placeholder.  Was written so the peices below would not have to be rewritten.
     var embedMessage = function(message, cb) {
       message = new Buffer(message);
       cb(null, message);
     };
+
     embedMessage(message, function (err, data) {
 
       if (!err) {
