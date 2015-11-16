@@ -6,7 +6,7 @@ var paths = require('../lib/util.js').paths;
 var path = require('path');
 var upload = multer({
   //destination folder
-  dest: path.join(__dirname + paths.temp)
+  dest: paths.temp
 });
 
 
