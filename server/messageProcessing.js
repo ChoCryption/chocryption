@@ -10,27 +10,32 @@ module.exports = {
     //check image type here
     var image = [];
     var fullName = path.join(paths.image, imageName);
-    console.log(fullName);
     var fileBuffer = readChunk.sync(fullName, 0, 262);
     var imageType = fileType(fileBuffer);
-    console.log(imageType);
 
-
-    if (imageType.ext !== 'png') {
+    if(!imageType) {
+      console.log('Error, file is null');
+      callback(new Error('File is not valid'));
+    } else if (imageType.ext !== 'png') {
       lwip.open(fullName, imageType.ext, function(err, image) {
-        image.writeFile(fullName + '.png', 'png', function(err) {
+        if(err) {
+          console.log('Problem opening');
+          callback(err);
+        }
+        fullName = path.join(paths.image, path.basename(fullName, imageType.ext) + 'png');
+        image.writeFile(fullName, 'png', function(err) {
           if (err) {
             console.log(err);
-            callback(err);
+            callback(new Error('did not work to write'));
           } else {
             console.log('Image converted to png.');
             console.log('Beginning encode process...');
-            stego.encode(fullName + '.png', message, function(err, encodeImageName) {
+            stego.encode(fullName, message, function(err, encodeImageName) {
               if(err) {
-                console.log('encode non pgn: ', err);
+                console.log('encode non png: ', err);
                 callback(err);
               } else {
-                console.log('encode non pgn: i am now encoded!!!')
+                console.log('Image is now encoded.');
                 callback(null, encodeImageName);
               }
             });
@@ -39,6 +44,10 @@ module.exports = {
       });
     } else if (imageType.ext === 'png') {
       lwip.open(fullName, 'png', function(err, image) {
+        if(err) {
+          console.log('Error opening file of type png');
+          callback(err);
+        }
         image.writeFile(fullName + '.png', 'png', function(err) {
           if (err) {
             console.log(err);
@@ -65,8 +74,13 @@ module.exports = {
   },
 
   decode: function(imageName, callback) {
-    var fullName = path.join(pathToImages, imageName);
-    var fileBuffer = readChunk.sync(fullName, 0, 262);
+    var fullName = path.join(paths.image, imageName);
+    var fileBuffer;
+    try {
+      fileBuffer = readChunk.sync(fullName, 0, 262);
+    } catch(e) {
+      callback(e);
+    }
     var imageType = fileType(fileBuffer);
     // console.log(fullName);
     //Do we need to check file type here??
@@ -90,8 +104,13 @@ module.exports = {
     //     }
     //   });
     // });
-    if (imageType.ext !== 'png') {
+    if(!imageType) {
+      console.log('Error, file is null');
+      callback(new Error('File is not valid'));
+    } else if (imageType.ext !== 'png') {
       lwip.open(fullName, imageType.ext, function(err, image) {
+        var fullName = path.join(paths.image, path.basename(fullName, imageType.ext) + '.png');
+        console.log('fullname is: ', fullname);
         image.writeFile(fullName + '.png', 'png', function(err) {
           if (err) {
             console.log(err);

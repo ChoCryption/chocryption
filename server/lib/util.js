@@ -1,4 +1,5 @@
 var path = require('path');
+var _ = require('underscore');
 
 exports.paths = {
   image: path.join(__dirname, '../image/'),
