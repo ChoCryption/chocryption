@@ -9,7 +9,7 @@ module.exports = {
   encode: function(imageName, message, callback) {
     //check image type here
     var image = [];
-    var fullName = path.join(paths.image, imageName);
+    var fullName = path.join(paths.temp, imageName);
     var fileBuffer = readChunk.sync(fullName, 0, 262);
     var imageType = fileType(fileBuffer);
 
@@ -22,7 +22,7 @@ module.exports = {
           console.log('Problem opening');
           callback(err);
         }
-        fullName = path.join(paths.image, path.basename(fullName, imageType.ext) + 'png');
+        fullName = path.join(paths.temp, path.basename(fullName, imageType.ext) + 'png');
         image.writeFile(fullName, 'png', function(err) {
           if (err) {
             console.log(err);
@@ -74,7 +74,7 @@ module.exports = {
   },
 
   decode: function(imageName, callback) {
-    var fullName = path.join(paths.image, imageName);
+    var fullName = path.join(paths.temp, imageName);
     var fileBuffer;
     try {
       fileBuffer = readChunk.sync(fullName, 0, 262);
@@ -109,7 +109,7 @@ module.exports = {
       callback(new Error('File is not valid'));
     } else if (imageType.ext !== 'png') {
       lwip.open(fullName, imageType.ext, function(err, image) {
-        var fullName = path.join(paths.image, path.basename(fullName, imageType.ext) + '.png');
+        var fullName = path.join(paths.temp, path.basename(fullName, imageType.ext) + '.png');
         console.log('fullname is: ', fullname);
         image.writeFile(fullName + '.png', 'png', function(err) {
           if (err) {
