@@ -4,17 +4,26 @@ angular.module('cho.decrypt', ['cho.services'])
   $scope.secretMessage = '';
   $scope.errorMessage = '';
 
-  $scope.decryptMessage = function () {
-
+  var getFile = function () {
     //pull the first file from the submit form
     var fileSelect = document.getElementById('file-select');
     var file = fileSelect.files[0];
-    //must re-construct a form object for the server
-    var formData = new FormData();
-    //name the file so the server can find it
-    formData.append('imageFile', file);
+    return file;
+  };
 
-    Decrypt.decryptMessage(formData)
+  var getFormObject = function (file) {
+    //must re-construct a form object for the server to recieve
+    var formData = new FormData();
+    //name the file with the identifier the server is expecting
+    formData.append('imageFile', file);
+    return formData;
+  };
+
+  $scope.decryptMessage = function () {
+    var file = getFile();
+    var form = getFormObject(file);
+
+    Decrypt.decryptMessage(form)
       .then(function (message) {
         $scope.secretMessage = message;
       })

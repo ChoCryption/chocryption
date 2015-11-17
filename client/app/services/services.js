@@ -1,7 +1,6 @@
 angular.module('cho.services', [])
 
 .factory('Encrypt', function ($http) {
-
   var encryptMessage = function (message) {
     return $http({
         method: 'POST',
@@ -14,16 +13,12 @@ angular.module('cho.services', [])
         return response.data;
       });
   };
-
   return {
     encryptMessage: encryptMessage
   };
-
 })
 
-
 .factory('Decrypt', function ($http) {
-
   var decryptMessage = function (form) {
     return $http({
         method: 'POST',
@@ -42,9 +37,7 @@ angular.module('cho.services', [])
         return response.data;
       });
   };
-
   return {
     decryptMessage: decryptMessage
   };
-
 });
