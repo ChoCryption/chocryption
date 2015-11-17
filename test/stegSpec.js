@@ -20,23 +20,23 @@ init(testPaths);
 
 describe('Steganography', function () {
 
-  beforeEach(function () {
+  // beforeEach(function () {
 
-    var files = fs.readdirSync(paths.temp);
-    var filePath = '';
-    var i = 0;
+  //   var files = fs.readdirSync(paths.temp);
+  //   var filePath = '';
+  //   var i = 0;
 
-    //Remove all files form temp directory
-    if ( files.length > 0 )
-      for ( i = 0; i < files.length; i++ ) {
-        filePath = paths.temp + files[i];
-        if ( fs.statSync(filePath).isFile() ) {
-          fs.unlinkSync( filePath );
-        } else {
-          console.log('is not file');
-        }
-      }
-  });
+  //   //Remove all files form temp directory
+  //   if ( files.length > 0 )
+  //     for ( i = 0; i < files.length; i++ ) {
+  //       filePath = paths.temp + files[i];
+  //       if ( fs.statSync(filePath).isFile() ) {
+  //         fs.unlinkSync( filePath );
+  //       } else {
+  //         console.log('is not file');
+  //       }
+  //     }
+  // });
 
   describe('Message Encoding: ', function () {
 
