@@ -20,6 +20,7 @@ testPaths = {
 init(testPaths);
 
 describe('Message Processing for Steganography', function () {
+  this.timeout(5000);
 
   // beforeEach(function () {
 
