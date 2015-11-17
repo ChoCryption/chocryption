@@ -12,7 +12,7 @@ var testAssetsDir = '../test_assets/';
 var testTempDir = '../test_assets/test_temp/';
 
 testPaths = {
-  image: path.join(__dirname, testAssetsDir),
+  image: path.join(__dirname, testTempDir),
   encoded: path.join(__dirname, testTempDir),
   temp: path.join(__dirname, testTempDir),
 };
@@ -21,23 +21,23 @@ init(testPaths);
 
 describe('Message Processing for Steganography', function () {
 
-  beforeEach(function () {
+  // beforeEach(function () {
 
-    var files = fs.readdirSync(paths.temp);
-    var filePath = '';
-    var i = 0;
+  //   var files = fs.readdirSync(paths.temp);
+  //   var filePath = '';
+  //   var i = 0;
 
-    //Remove all files form temp directory
-    if ( files.length > 0 )
-      for ( i = 0; i < files.length; i++ ) {
-        filePath = paths.temp + files[i];
-        if ( fs.statSync(filePath).isFile() ) {
-          fs.unlinkSync( filePath );
-        } else {
-          console.log('is not file');
-        }
-      }
-  });
+  //   //Remove all files form temp directory
+  //   if ( files.length > 0 )
+  //     for ( i = 0; i < files.length; i++ ) {
+  //       filePath = paths.temp + files[i];
+  //       if ( fs.statSync(filePath).isFile() ) {
+  //         fs.unlinkSync( filePath );
+  //       } else {
+  //         console.log('is not file');
+  //       }
+  //     }
+  // });
 
   describe('Message Encoding: ', function () {
 
@@ -79,8 +79,8 @@ describe('Message Processing for Steganography', function () {
     });
 
     it('Should return a string filename if successful', function ( done ) {
-      var unencodedTestImage = path.join( testAssetsDir, '/PNG_Example' );
-
+      var unencodedTestImage = '/PNG_Example' ;
+      console.log('the path is: ', unencodedTestImage);
       messageProcess.encode(unencodedTestImage, testMessage, function ( err, fileName ) {
         expect( err ).to.be.null;
         expect( fileName ).to.be.a( 'string' );
